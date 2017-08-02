@@ -40,11 +40,11 @@ import net.dv8tion.jda.core.requests.*;
 import net.dv8tion.jda.core.requests.restaction.AuditableRestAction;
 import net.dv8tion.jda.core.utils.MiscUtil;
 import net.dv8tion.jda.core.utils.SimpleLog;
+import net.dv8tion.jda.core.utils.tuple.ImmutablePair;
+import net.dv8tion.jda.core.utils.tuple.Pair;
 import okhttp3.OkHttpClient;
 import net.dv8tion.jda.core.utils.Checks;
 import net.dv8tion.jda.core.requests.Route.CompiledRoute;
-import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.apache.commons.lang3.tuple.Pair;
 import org.json.JSONObject;
 
 import javax.security.auth.login.LoginException;
@@ -137,11 +137,11 @@ public class JDAImpl implements JDA
             throw new RuntimeException("Could not fetch WS-Gateway!"); 
         }
 
-        this.gatewayUrl = gateway.getKey();
+        this.gatewayUrl = gateway.getLeft();
 
         if (shardInfo != null && shardInfo.getShardTotal() == -1)
         {
-            shardInfo.setShardTotal(gateway.getValue());
+            shardInfo.setShardTotal(gateway.getRight());
         }
 
         client = new WebSocketClient(this);
